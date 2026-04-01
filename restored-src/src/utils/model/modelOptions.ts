@@ -476,6 +476,14 @@ export function getModelOptions(fastMode = false): ModelOption[] {
     })
   }
 
+  // Append additional model options fetched from settings.json
+  const settings = getSettings_DEPRECATED()
+  for (const opt of settings?.additionalModelOptions ?? []) {
+    if (!options.some(existing => existing.value === opt.value)) {
+      options.push(opt)
+    }
+  }
+
   // Append additional model options fetched during bootstrap
   for (const opt of getGlobalConfig().additionalModelOptionsCache ?? []) {
     if (!options.some(existing => existing.value === opt.value)) {

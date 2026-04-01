@@ -376,6 +376,19 @@ export const SettingsSchema = lazySchema(() =>
         .string()
         .optional()
         .describe('Override the default model used by Claude Code'),
+      // Custom model options for third-party API providers
+      additionalModelOptions: z
+        .array(z.object({
+          value: z.string(),
+          label: z.string(),
+          description: z.string().optional(),
+        }))
+        .optional()
+        .describe(
+          'Additional model options to show in the model picker. ' +
+            'Each option has a value (model ID), label (display name), and optional description. ' +
+            'Useful for third-party API providers with custom models.',
+        ),
       // Enterprise allowlist of models
       availableModels: z
         .array(z.string())
